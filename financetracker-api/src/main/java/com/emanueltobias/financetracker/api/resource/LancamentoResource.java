@@ -24,6 +24,7 @@ import com.emanueltobias.financetracker.api.event.RecursoCriadoEvent;
 import com.emanueltobias.financetracker.api.exceptionhandler.FinancetrackerExeceptionHandler.Erro;
 import com.emanueltobias.financetracker.api.model.Lancamento;
 import com.emanueltobias.financetracker.api.repository.LancamentoRepository;
+import com.emanueltobias.financetracker.api.repository.filter.LancamentoFilter;
 import com.emanueltobias.financetracker.api.service.LancamentoService;
 import com.emanueltobias.financetracker.api.service.exception.PessoaInexistenteOuInativaException;
 
@@ -44,9 +45,9 @@ public class LancamentoResource {
 	private MessageSource messageSource;
 	
 	@GetMapping
-	public List<Lancamento> listar() {
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter) {
 		
-		return lancamentoRepository.findAll();
+		return lancamentoRepository.filtrar(lancamentoFilter);
 		
 	}
 	

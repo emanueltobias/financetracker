@@ -74,6 +74,13 @@
 		    <version>3.4</version>
 		</dependency>
 		
+		<!-- MetaModel configurar no STS Project->Properties->JavaCompiler 
+			 Habilitar Annotation Processing e Factory Path (Habilitar para baixar o JAR)-->
+		<!-- <dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-jpamodelgen</artifactId>
+		</dependency> -->
+		
 		
 	</dependencies>
 
