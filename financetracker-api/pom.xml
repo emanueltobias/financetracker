@@ -74,6 +74,12 @@
 		    <version>3.4</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		
 		<!-- MetaModel configurar no STS Project->Properties->JavaCompiler 
 			 Habilitar Annotation Processing e Factory Path (Habilitar para baixar o JAR)-->
 		<!-- <dependency>
