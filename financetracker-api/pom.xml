@@ -84,7 +84,13 @@
 		    <groupId>org.springframework.security.oauth</groupId>
 		    <artifactId>spring-security-oauth2</artifactId>
  		</dependency>
-				
+ 		
+ 		<!-- JSON Web Token -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-jwt</artifactId>
+		</dependency>
+						
 
 		
 		<!-- MetaModel configurar no STS Project->Properties->JavaCompiler 
