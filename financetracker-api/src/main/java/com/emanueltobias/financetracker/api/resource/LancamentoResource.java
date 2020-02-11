@@ -30,6 +30,7 @@ import com.emanueltobias.financetracker.api.exceptionhandler.FinancetrackerExece
 import com.emanueltobias.financetracker.api.model.Lancamento;
 import com.emanueltobias.financetracker.api.repository.LancamentoRepository;
 import com.emanueltobias.financetracker.api.repository.filter.LancamentoFilter;
+import com.emanueltobias.financetracker.api.repository.projection.ResumoLancamento;
 import com.emanueltobias.financetracker.api.service.LancamentoService;
 import com.emanueltobias.financetracker.api.service.exception.PessoaInexistenteOuInativaException;
 
@@ -54,6 +55,14 @@ public class LancamentoResource {
 	public Page<Lancamento> pesquisar(LancamentoFilter lancamentoFilter, Pageable pegeable) {
 		
 		return lancamentoRepository.filtrar(lancamentoFilter, pegeable);
+		
+	}
+	
+	@GetMapping(params = "resumo")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
+	public Page<ResumoLancamento> resumir(LancamentoFilter lancamentoFilter, Pageable pegeable) {
+		
+		return lancamentoRepository.resumir(lancamentoFilter, pegeable);
 		
 	}
 	
