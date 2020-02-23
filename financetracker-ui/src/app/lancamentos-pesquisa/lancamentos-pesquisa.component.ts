@@ -9,16 +9,22 @@ export class LancamentosPesquisaComponent  {
 
 
   lancamentos = [
-    { tipo: 'DESPESA', descricao: 'Teste1', dataVencimento: '30/06/2020',
-      dataPagamento: null, valor: 55.55, pessoa: 'Teste1' },
-      { tipo: 'RECEITA', descricao: 'Teste2', dataVencimento: '30/06/2020',
-      dataPagamento: null, valor: 444.44, pessoa: 'Teste2' },
-      { tipo: 'RECEITA', descricao: 'Teste2', dataVencimento: '30/06/2020',
-      dataPagamento: null, valor: 444.44, pessoa: 'Teste2' },
-      { tipo: 'DESPESA', descricao: 'Teste2', dataVencimento: '30/06/2020',
-      dataPagamento: null, valor: 444.44, pessoa: 'Teste2' },
-      { tipo: 'DESPESA', descricao: 'Teste3', dataVencimento: '30/09/2020',
-      dataPagamento: '21/09/2020', valor: 99.99, pessoa: 'Teste3' }
+    { tipo: 'DESPESA', descricao: 'Compra Veiculo', dataVencimento: new Date(2020, 2, 27),
+      dataPagamento: new Date(2020, 2, 23), valor: 12000, pessoa: 'Teste1' },
+      { tipo: 'RECEITA', descricao: 'Venda de produtos', dataVencimento: new Date(2020, 2, 27),
+      dataPagamento: null, valor: 150, pessoa: 'Teste2' },
+      { tipo: 'RECEITA', descricao: 'Recebimento divida fulano', dataVencimento: new Date(2020, 2, 27),
+      dataPagamento: null, valor: 1290, pessoa: 'Teste2' },
+      { tipo: 'DESPESA', descricao: 'Combustivel', dataVencimento: new Date(2020, 2, 27),
+      dataPagamento: null, valor: 390, pessoa: 'Teste2' },
+      { tipo: 'DESPESA', descricao: 'Alimentação', dataVencimento: new Date(2020, 2, 27),
+      dataPagamento: new Date(2020, 2, 23), valor: 9999, pessoa: 'Teste3' },
+      { tipo: 'RECEITA', descricao: 'Teste2', dataVencimento: new Date(2020, 2, 27),
+      dataPagamento: null, valor: 2780, pessoa: 'Teste2' },
+      { tipo: 'DESPESA', descricao: 'Teste2', dataVencimento: new Date(2020, 2, 27),
+      dataPagamento: null, valor: 5389, pessoa: 'Teste2' },
+      { tipo: 'DESPESA', descricao: 'Teste3', dataVencimento: new Date(2020, 2, 27),
+      dataPagamento: new Date(2020, 2, 23), valor: 9999, pessoa: 'Teste3' }
     ];
 
 }
