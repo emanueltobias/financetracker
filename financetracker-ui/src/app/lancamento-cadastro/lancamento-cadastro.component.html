@@ -1,5 +1,5 @@
 <div class="container">
-  <form>
+  <form #f="ngForm" autocomplete="off">
 
     <div class="ui-g">
       <div class="ui-g-12">
@@ -12,8 +12,14 @@
 
       <div class="ui-g-6 ui-md-3 ui-fluid">
         <label>Vencimento</label>
-        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" name="vencimento"
+        [inline]="false" [readonlyInput]="false" [showIcon]="true"
+        ngModel #vencimento="ngModel" required></p-calendar>
+
+        <app-message [control]="vencimento" error="required"
+          text="Informe uma data de vencimento"></app-message>
       </div>
+
       <div class="ui-g-6 ui-md-3 ui-fluid">
         <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
         <p-calendar dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
@@ -32,30 +38,31 @@
       </div>
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label>Valor</label>
-        <input pInputText type="text" placeholder="0,00" name="valor" currencyMask
+        <input name="valor" pInputText type="text" placeholder="0,00" name="valor" currencyMask
         [options]="{
           prefix: '',
           thousands: '.',
           decimal: ',',
           allowNegative: false }"
-          ngModel>
+          ngModel required>
       </div>
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Categoria</label>
-        <p-dropdown [options]="categorias" placeholder="Selecione"
-        #categoria></p-dropdown>
+        <p-dropdown name="categoria" [options]="categorias" placeholder="Selecione"
+        ngModel required></p-dropdown>
       </div>
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Pessoa</label>
-        <p-dropdown [options]="pessoas" placeholder="Selecione"
-        #pessoa [filter]="true"></p-dropdown>
+        <p-dropdown name="pessoa" [options]="pessoas" placeholder="Selecione"
+         [filter]="true"
+        ngModel required></p-dropdown>
       </div>
       <div class="ui-g-12 ui-fluid">
         <label>Observação</label>
         <textarea pInputTextarea rows="3"></textarea>
       </div>
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar" style="margin: 0 3px"></button>
+        <button pButton type="submit" label="Salvar" [disabled]="f.invalid" style="margin: 0 3px"></button>
         <button pButton type="button" label="Novo" class="ui-button-info" style="margin: 0 3px"></button>
         <a href="javascript:;">Voltar para a pesquisa</a>
       </div>
