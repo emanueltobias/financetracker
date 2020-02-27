@@ -12,8 +12,6 @@ import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
-import { MessageModule } from 'primeng/message';
-import { MessagesModule } from 'primeng/messages';
 
 import { NgxCurrencyModule } from 'ngx-currency';
 
@@ -24,6 +22,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
+import { MessageComponent } from './message/message.component';
 
 
 @NgModule({
@@ -34,6 +33,7 @@ import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.compo
     PessoasPesquisaComponent,
     LancamentoCadastroComponent,
     PessoaCadastroComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,8 +50,6 @@ import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.compo
     SelectButtonModule,
     DropdownModule,
     InputMaskModule,
-    MessageModule,
-    MessagesModule,
 
     NgxCurrencyModule,
 
