@@ -7,6 +7,7 @@ import { CoreModule } from './core/core.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { LancamentoService } from './lancamentos/lancamento.service';
+import { PessoaService } from './pessoas/pessoa.service';
 
 import { AppComponent } from './app.component';
 
@@ -25,7 +26,7 @@ import { AppComponent } from './app.component';
     LancamentosModule,
     PessoasModule
   ],
-  providers: [LancamentoService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

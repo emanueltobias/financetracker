@@ -12,7 +12,6 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { SharedModule } from './../shared/shared.module';
-import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 
@@ -35,7 +34,6 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
   declarations: [
     PessoasPesquisaComponent,
     PessoaCadastroComponent,
-    PessoasGridComponent,
   ],
   exports: [
     PessoasPesquisaComponent,
