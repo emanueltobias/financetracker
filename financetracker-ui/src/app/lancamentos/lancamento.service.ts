@@ -59,4 +59,15 @@ export class LancamentoService {
       })
     );
   }
+
+  excluir(codigo: number): Observable<void> {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'basic YWRtaW5AZW1hbnVlbHRvYmlhcy5jb206YWRtaW4=');
+
+    return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
+    .pipe(
+      map(() => null)
+    );
+  }
+
 }
