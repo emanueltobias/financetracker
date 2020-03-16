@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent, ConfirmationService } from 'primeng/api';
 import { ToastaService } from 'ngx-toasta';
 
+import { ErrorHandlerService } from './../../core/error-handler.service';
 import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class LancamentosPesquisaComponent implements OnInit  {
   @ViewChild('tabela') tabela;
 
   constructor(
+    private errorHandle: ErrorHandlerService,
     private lancamentoService: LancamentoService,
     private toastaService: ToastaService,
     private confirmationService: ConfirmationService
@@ -27,13 +29,16 @@ export class LancamentosPesquisaComponent implements OnInit  {
   }
 
   pesquisar(pagina = 0) {
-    this.filtro.pagina = pagina;
-
-    this.lancamentoService.pesquisar(this.filtro)
-    .subscribe(resultado => {
-      this.totalRegistros = resultado.total;
-      this.lancamentos = resultado.lancamentos;
-    });
+  try {
+      this.filtro.pagina = pagina;
+      this.lancamentoService.pesquisar(this.filtro)
+      .subscribe(resultado => {
+        this.totalRegistros = resultado.total;
+        this.lancamentos = resultado.lancamentos;
+      });
+    } catch (erro) {
+      this.errorHandle.handle(erro);
+    }
   }
 
   aoMudarPagina(event: LazyLoadEvent) {
@@ -51,16 +56,19 @@ export class LancamentosPesquisaComponent implements OnInit  {
   }
 
   excluir(lancamento: any) {
-    this.lancamentoService.excluir(lancamento.codigo)
-    .subscribe(() => {
-      if (this.tabela.first === 0) {
-        this.pesquisar();
-      } else {
-        this.tabela.first = 0;
-      }
-
-      this.toastaService.success('Lançamento excluído com sucesso!');
-    });
+    try {
+        this.lancamentoService.excluir(lancamento.codigo)
+        .subscribe(() => {
+          if (this.tabela.first === 0) {
+            this.pesquisar();
+          } else {
+            this.tabela.first = 0;
+          }
+          this.toastaService.success('Lançamento excluído com sucesso!');
+        });
+  } catch (erro) {
+    this.errorHandle.handle(erro);
+  }
   }
 
 }
