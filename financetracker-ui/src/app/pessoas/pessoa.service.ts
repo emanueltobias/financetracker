@@ -17,7 +17,8 @@ export class PessoaService {
 pessoasUrl = 'http://localhost:8080/pessoas';
 
 
-  constructor(private http: HttpClient){ }
+  constructor(private http: HttpClient) { }
+
     pesquisar(filtro: PessoaFiltro): Observable<any> {
 
       let headers: HttpHeaders = new HttpHeaders();
@@ -55,7 +56,14 @@ pessoasUrl = 'http://localhost:8080/pessoas';
 
       return this.http.get(`${this.pessoasUrl}`, { headers })
     .pipe(
-      map(response => response['content'])
+      map(response => {
+        const responseJson = response;
+
+        const resultado = {
+          nomes: responseJson['content']
+        };
+        return resultado;
+      })
     );
    }
 }
