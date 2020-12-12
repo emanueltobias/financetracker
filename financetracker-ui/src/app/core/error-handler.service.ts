@@ -13,7 +13,7 @@ export class ErrorHandlerService {
   handle(errorResponse: any) {
     let msg: string;
 
-    if (typeof errorResponse === 'string') {
+    if (typeof errorResponse === `string`) {
       msg = errorResponse;
       } else {
         msg = 'Erro ao processar serviço remoto. Tente novamente';

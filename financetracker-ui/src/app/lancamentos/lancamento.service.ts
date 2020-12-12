@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
@@ -21,7 +19,7 @@ export class LancamentoService {
 
   constructor(private http: HttpClient) { }
 
-  pesquisar(filtro: LancamentoFiltro): Observable<any> {
+  pesquisar(filtro: LancamentoFiltro): Promise<any> {
 
     let headers: HttpHeaders = new HttpHeaders();
     let params: HttpParams = new HttpParams();
@@ -46,28 +44,24 @@ export class LancamentoService {
       moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
 
-    return this.http.get(`${this.lancamentosUrl}?resumo`, { headers, params })
-    .pipe(
-      map(response => {
-        const responseJson = response;
+    return this.http.get<any>(`${this.lancamentosUrl}?resumo`, { params,  headers })
+      .toPromise()
+      .then(response => {
+        const lancamentos = response.content;
 
         const resultado = {
-          lancamentos: responseJson['content'],
-          total: responseJson['totalElements']
+          lancamentos,
+          total: response.totalElements
         };
+
         return resultado;
-      })
-    );
+      });
   }
 
-  excluir(codigo: number): Observable<void> {
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Authorization', 'basic YWRtaW5AZW1hbnVlbHRvYmlhcy5jb206YWRtaW4=');
-
-    return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
-    .pipe(
-      map(() => null)
-    );
+  excluir(codigo: number): Promise<void> {
+    return this.http.delete(`${this.lancamentosUrl}/${codigo}`)
+      .toPromise()
+      .then(() => null);
   }
 
 }

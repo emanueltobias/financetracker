@@ -1,3 +1,4 @@
+import { ErrorHandlerService } from './../../core/error-handler.service';
 import { LazyLoadEvent } from 'primeng/api/public_api';
 import { PessoaService, PessoaFiltro } from './../pessoa.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,26 +14,22 @@ export class PessoasPesquisaComponent implements OnInit{
   filtro = new PessoaFiltro();
   nomes = [];
 
-  ngOnInit() {
-    this.listarTodas();
-  }
+  ngOnInit() {}
 
-  constructor(private pessoaService: PessoaService) {}
+  constructor(
+    private pessoaService: PessoaService,
+    private errorHandler: ErrorHandlerService
+    ) {}
 
   pesquisar(pagina = 0) {
     this.filtro.pagina = pagina;
 
     this.pessoaService.pesquisar(this.filtro)
-    .subscribe(resultado => {
-      this.totalRegistros = resultado.total;
-      this.nomes = resultado.nomes;
-    });
-  }
-
-  listarTodas() {
-    this.pessoaService.listarTodas()
-    .subscribe(resultado => this.nomes = resultado);
-
+      .then(resultado => {
+        this.totalRegistros = resultado.total;
+        this.nomes = resultado.pessoas;
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
   aoMudarPagina(event: LazyLoadEvent) {

@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -19,7 +17,7 @@ pessoasUrl = 'http://localhost:8080/pessoas';
 
   constructor(private http: HttpClient) { }
 
-    pesquisar(filtro: PessoaFiltro): Observable<any> {
+    pesquisar(filtro: PessoaFiltro): Promise<any> {
 
       let headers: HttpHeaders = new HttpHeaders();
       let params: HttpParams = new HttpParams();
@@ -34,36 +32,24 @@ pessoasUrl = 'http://localhost:8080/pessoas';
         params = params.append('nome', filtro.nome);
       }
 
-      return this.http.get(`${this.pessoasUrl}`, { headers, params })
-    .pipe(
-      map(response => {
-        const responseJson = response;
+      return this.http.get<any>(`${this.pessoasUrl}`, { params, headers })
+      .toPromise()
+      .then(response => {
+        const pessoas = response.content;
 
         const resultado = {
-          nomes: responseJson['content'],
-          total: responseJson['totalElements']
+          pessoas,
+          total: response.totalElements
         };
+
         return resultado;
-      })
-    );
+      });
   }
 
-    listarTodas(): Observable<any> {
+  listarTodas(): Promise<any> {
+    return this.http.get<any>(this.pessoasUrl)
+      .toPromise()
+      .then(response => response.content);
+  }
 
-      let headers: HttpHeaders = new HttpHeaders();
-
-      headers = headers.append('Authorization', 'basic YWRtaW5AZW1hbnVlbHRvYmlhcy5jb206YWRtaW4=');
-
-      return this.http.get(`${this.pessoasUrl}`, { headers })
-    .pipe(
-      map(response => {
-        const responseJson = response;
-
-        const resultado = {
-          nomes: responseJson['content']
-        };
-        return resultado;
-      })
-    );
-   }
 }

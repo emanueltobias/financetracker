@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LazyLoadEvent, ConfirmationService } from 'primeng/api';
+import { LazyLoadEvent, ConfirmationService, MessageService } from 'primeng/api';
 import { ToastaService } from 'ngx-toasta';
 
 import { ErrorHandlerService } from './../../core/error-handler.service';
@@ -18,27 +18,23 @@ export class LancamentosPesquisaComponent implements OnInit  {
   @ViewChild('tabela') tabela;
 
   constructor(
-    private errorHandle: ErrorHandlerService,
+    private errorHandler: ErrorHandlerService,
     private lancamentoService: LancamentoService,
-    private toastaService: ToastaService,
+    private messageService: MessageService,
     private confirmationService: ConfirmationService
     ) { }
 
-  ngOnInit() {
-    //this.pesquisar();
-  }
+  ngOnInit() {}
 
   pesquisar(pagina = 0) {
-  try {
-      this.filtro.pagina = pagina;
-      this.lancamentoService.pesquisar(this.filtro)
-      .subscribe(resultado => {
+    this.filtro.pagina = pagina;
+
+    this.lancamentoService.pesquisar(this.filtro)
+      .then(resultado => {
         this.totalRegistros = resultado.total;
         this.lancamentos = resultado.lancamentos;
-      });
-    } catch (erro) {
-      this.errorHandle.handle(erro);
-    }
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
   aoMudarPagina(event: LazyLoadEvent) {
@@ -56,19 +52,17 @@ export class LancamentosPesquisaComponent implements OnInit  {
   }
 
   excluir(lancamento: any) {
-    try {
-        this.lancamentoService.excluir(lancamento.codigo)
-        .subscribe(() => {
-          if (this.tabela.first === 0) {
-            this.pesquisar();
-          } else {
-            this.tabela.first = 0;
-          }
-          this.toastaService.success('Lançamento excluído com sucesso!');
-        });
-  } catch (erro) {
-    this.errorHandle.handle(erro);
-  }
+    this.lancamentoService.excluir(lancamento.codigo)
+      .then(() => {
+        if (this.tabela.first === 0) {
+          this.pesquisar();
+        } else {
+          this.tabela.first = 0;
+        }
+
+        this.messageService.add({ severity: 'success', detail: 'Lançamento excluído com sucesso!' });
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
 }
