@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LazyLoadEvent, ConfirmationService, MessageService } from 'primeng/api';
-import { ToastaService } from 'ngx-toasta';
+import { LazyLoadEvent, MessageService, ConfirmationService  } from 'primeng/api';
 
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
@@ -42,15 +41,6 @@ export class LancamentosPesquisaComponent implements OnInit  {
     this.pesquisar(pagina);
   }
 
-  confirmarExclusao(lancamento: any) {
-    this.confirmationService.confirm({
-      message: 'Tem certeza que deseja excluir?',
-      accept: () => {
-        this.excluir(lancamento);
-      }
-    });
-  }
-
   excluir(lancamento: any) {
     this.lancamentoService.excluir(lancamento.codigo)
       .then(() => {
@@ -63,6 +53,15 @@ export class LancamentosPesquisaComponent implements OnInit  {
         this.messageService.add({ severity: 'success', detail: 'Lançamento excluído com sucesso!' });
       })
       .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  confirmarExclusao(lancamento: any) {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.excluir(lancamento);
+      }
+    });
   }
 
 }

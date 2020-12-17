@@ -52,4 +52,11 @@ pessoasUrl = 'http://localhost:8080/pessoas';
       .then(response => response.content);
   }
 
+  excluir(codigo: number): Promise<void> {
+    return this.http.delete(`${this.pessoasUrl}/${codigo}`)
+      .toPromise()
+      .then(() => null);
+  }
+
+
 }
