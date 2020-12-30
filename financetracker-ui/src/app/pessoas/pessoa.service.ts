@@ -53,10 +53,20 @@ pessoasUrl = 'http://localhost:8080/pessoas';
   }
 
   excluir(codigo: number): Promise<void> {
-    return this.http.delete(`${this.pessoasUrl}/${codigo}`)
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'basic YWRtaW5AZW1hbnVlbHRvYmlhcy5jb206YWRtaW4=');
+    return this.http.delete(`${this.pessoasUrl}/${codigo}`, { headers })
       .toPromise()
       .then(() => null);
   }
 
+  mudarStatus(codigo: number, ativo: boolean): Promise<void> {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'basic YWRtaW5AZW1hbnVlbHRvYmlhcy5jb206YWRtaW4=');
+    headers = headers.append('Content-Type', 'application/json');
+    return this.http.put(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers })
+      .toPromise()
+      .then(() => null);
+  }
 
 }
